@@ -12,7 +12,7 @@ class Tree {
     );
     copyarr.sort((a, b) => a - b);
     this.arr = [...copyarr];
-    this.root = this.recursiveBST(this.arr, 0, this.arr.length-1);
+    this.root = this.recursiveBST(this.arr, 0, this.arr.length - 1);
   }
 
   recursiveBST(array, st, end) {
@@ -27,10 +27,42 @@ class Tree {
   insert(value, root) {
     if (root == null) return new nodeClass(value);
     if (value < root.data) {
-      root.left=this.insert(value, root.left);
+      root.left = this.insert(value, root.left);
     }
     if (value > root.data) {
-      root.right=this.insert(value, root.right);
+      root.right = this.insert(value, root.right);
+    }
+    return root;
+  }
+
+  Sucessor(root) {
+    while (root.left != null && root.data != null) {
+      root = root.left;
+    }
+    return root.data;
+  }
+
+  deleteItem(value, root) {
+    if (value == root.data) {
+      if (root.left == null && root.right == null) {
+        return null;
+      } else if (root.left == null && root.right != null) {
+        return root.right;
+      } else if (root.right == null && root.left != null) {
+        return root.left;
+      } else {
+        let leafValue = this.Sucessor(root.right);
+        root.data = leafValue;
+        root.right = this.deleteItem(leafValue, root.right);
+        return root;
+      }
+    }
+
+    if (value > root.data) {
+      root.right = this.deleteItem(value, root.right);
+    }
+    if (value < root.data) {
+      root.left = this.deleteItem(value, root.left);
     }
     return root;
   }
@@ -55,11 +87,18 @@ class Tree {
 
 let tree = new Tree([1, 5, 9, 14, 23, 27]);
 tree.buildTree(tree.arr);
-tree.insert(13, tree.root);
-tree.insert(0, tree.root);
-//tree.insert(2, tree.root);
-console.log(tree.insert(2, tree.root))
-console.log(tree.insert(25, tree.root))
 
 //console.log(tree.arr);
-tree.prettyPrint(tree.root)
+
+tree.prettyPrint(tree.root);
+/*tree.deleteItem(1, tree.root);
+tree.deleteItem(5, tree.root);
+tree.deleteItem(9, tree.root);
+*
+
+tree.deleteItem(9, tree.root);
+tree.deleteItem(27, tree.root);
+
+tree.deleteItem(1, tree.root);
+*/
+tree.prettyPrint(tree.root);
