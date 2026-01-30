@@ -12,7 +12,7 @@ class Tree {
     );
     copyarr.sort((a, b) => a - b);
     this.arr = [...copyarr];
-    return this.recursiveBST(this.arr, 0, this.arr.length);
+    this.root = this.recursiveBST(this.arr, 0, this.arr.length-1);
   }
 
   recursiveBST(array, st, end) {
@@ -21,6 +21,17 @@ class Tree {
     let root = new nodeClass(array[mid]);
     root.left = this.recursiveBST(array, st, mid - 1);
     root.right = this.recursiveBST(array, mid + 1, end);
+    return root;
+  }
+
+  insert(value, root) {
+    if (root == null) return new nodeClass(value);
+    if (value < root.data) {
+      root.left=this.insert(value, root.left);
+    }
+    if (value > root.data) {
+      root.right=this.insert(value, root.right);
+    }
     return root;
   }
 
@@ -42,6 +53,13 @@ class Tree {
   }
 }
 
-let tree = new Tree([1, 2, 3, 9, 13, 14]);
+let tree = new Tree([1, 5, 9, 14, 23, 27]);
 tree.buildTree(tree.arr);
+tree.insert(13, tree.root);
+tree.insert(0, tree.root);
+//tree.insert(2, tree.root);
+console.log(tree.insert(2, tree.root))
+console.log(tree.insert(25, tree.root))
+
 //console.log(tree.arr);
+tree.prettyPrint(tree.root)
