@@ -100,6 +100,27 @@ class Tree {
     this.levelOrderRecursive(callback, queue);
   }
 
+  inOrderForEach(callback, root) {
+    if (root == null) return;
+    this.inOrderForEach(callback, root.left);
+    callback(root);
+    this.inOrderForEach(callback, root.right);
+  }
+
+  preOrderForEach(callback, root) {
+    if (root == null) return;
+    callback(root);
+    this.preOrderForEach(callback, root.left);
+    this.preOrderForEach(callback, root.right);
+  }
+
+  postOrderForEach(callback, root) {
+    if (root == null) return;
+    this.postOrderForEach(callback, root.left);
+    this.postOrderForEach(callback, root.right);
+    callback(root);
+  }
+
   print(node) {
     console.log(node.data);
   }
@@ -122,7 +143,7 @@ class Tree {
   }
 }
 
-let tree = new Tree([1, 5, 9, 14, 23, 27]);
+let tree = new Tree([1, 5, 9, 14, 23, 27, 0]);
 tree.buildTree(tree.arr);
 
 //console.log(tree.arr);
@@ -140,6 +161,11 @@ tree.deleteItem(1, tree.root);
 */
 tree.prettyPrint(tree.root);
 //tree.levelOrderForEach(tree.print);
-tree.levelOrderRecursive(tree.print, [tree.root]);
-tree.prettyPrint(tree.root);
+//tree.levelOrderRecursive(tree.print, [tree.root]);
+tree.preOrderForEach(tree.print, tree.root);
 
+tree.prettyPrint(tree.root);
+tree.inOrderForEach(tree.print, tree.root);
+
+tree.prettyPrint(tree.root);
+tree.postOrderForEach(tree.print, tree.root);
