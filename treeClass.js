@@ -35,6 +35,7 @@ class Tree {
     return root;
   }
 
+  //Finds the value of the node to be added in place of the node being deleted
   Sucessor(root) {
     while (root.left != null && root.data != null) {
       root = root.left;
@@ -51,9 +52,10 @@ class Tree {
       } else if (root.right == null && root.left != null) {
         return root.left;
       } else {
-        let leafValue = this.Sucessor(root.right);
-        root.data = leafValue;
-        root.right = this.deleteItem(leafValue, root.right);
+        let sucessorValue = this.Sucessor(root.right);
+        root.data = sucessorValue;
+        //delete the sucessor node since its value is replaced with the deleted node
+        root.right = this.deleteItem(sucessorValueValue, root.right);
         return root;
       }
     }
@@ -65,6 +67,41 @@ class Tree {
       root.left = this.deleteItem(value, root.left);
     }
     return root;
+  }
+
+  levelOrderForEach(callback) {
+    if (typeof callback != "function") throw new Error("Callback required");
+    let queue = [];
+    let currentnode = this.root;
+    queue.push(currentnode);
+    while (queue != "") {
+      currentnode = queue.shift();
+      callback(currentnode);
+      if (currentnode.left != null) {
+        queue.push(currentnode.left);
+      }
+      if (currentnode.right != null) {
+        queue.push(currentnode.right);
+      }
+    }
+  }
+
+  levelOrderRecursive(callback, queue) {
+    if (typeof callback != "function") throw new Error("Callback required");
+    if (queue == "") return;
+    let currentnode = queue.shift();
+    callback(currentnode);
+    if (currentnode.left != null) {
+      queue.push(currentnode.left);
+    }
+    if (currentnode.right != null) {
+      queue.push(currentnode.right);
+    }
+    this.levelOrderRecursive(callback, queue);
+  }
+
+  print(node) {
+    console.log(node.data);
   }
 
   prettyPrint(node, prefix = "", isLeft = true) {
@@ -90,7 +127,7 @@ tree.buildTree(tree.arr);
 
 //console.log(tree.arr);
 
-tree.prettyPrint(tree.root);
+//tree.prettyPrint(tree.root);
 /*tree.deleteItem(1, tree.root);
 tree.deleteItem(5, tree.root);
 tree.deleteItem(9, tree.root);
@@ -102,3 +139,7 @@ tree.deleteItem(27, tree.root);
 tree.deleteItem(1, tree.root);
 */
 tree.prettyPrint(tree.root);
+//tree.levelOrderForEach(tree.print);
+tree.levelOrderRecursive(tree.print, [tree.root]);
+tree.prettyPrint(tree.root);
+
