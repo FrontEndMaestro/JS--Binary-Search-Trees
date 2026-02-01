@@ -74,7 +74,7 @@ class Tree {
     let queue = [];
     let currentnode = this.root;
     queue.push(currentnode);
-    while (queue != "") {
+    while (queue.length > 0) {
       currentnode = queue.shift();
       callback(currentnode);
       if (currentnode.left != null) {
@@ -88,7 +88,7 @@ class Tree {
 
   levelOrderRecursive(callback, queue) {
     if (typeof callback != "function") throw new Error("Callback required");
-    if (queue == "") return;
+    if (queue.length == 0) return;
     let currentnode = queue.shift();
     callback(currentnode);
     if (currentnode.left != null) {
@@ -121,6 +121,39 @@ class Tree {
     callback(root);
   }
 
+  height(value, root) {
+    if (root == null) return undefined;
+    if (value == root.data) {
+      return this.countHeight(root, 0, 0);
+    }
+    return this.height(value, root.left) == undefined
+      ? this.height(value, root.right)
+      : this.height(value, root.left);
+  }
+
+  countHeight(currentNode) {
+    if (currentNode == null) return -1;
+    let leftHeight = this.countHeight(currentNode.left);
+    let rightHeight = this.countHeight(currentNode.right);
+
+    return Math.max(leftHeight, rightHeight) + 1;
+  }
+
+  depth(value, root) {
+    if (root == null) return undefined;
+    if (value == root.data) {
+      return 0;
+    }
+
+    let leftSubtree = this.depth(value, root.left);
+    let rightSubtree = this.depth(value, root.right);
+    return leftSubtree == undefined
+      ? rightSubtree == undefined
+        ? undefined
+        : rightSubtree + 1
+      : leftSubtree + 1;
+  }
+
   print(node) {
     console.log(node.data);
   }
@@ -143,9 +176,10 @@ class Tree {
   }
 }
 
-let tree = new Tree([1, 5, 9, 14, 23, 27, 0]);
+let tree = new Tree([1, 5, 9, 14, 23, 27, 0, 23, 18, 2]);
 tree.buildTree(tree.arr);
 
+tree.insert(28, tree.root);
 //console.log(tree.arr);
 
 //tree.prettyPrint(tree.root);
@@ -162,10 +196,13 @@ tree.deleteItem(1, tree.root);
 tree.prettyPrint(tree.root);
 //tree.levelOrderForEach(tree.print);
 //tree.levelOrderRecursive(tree.print, [tree.root]);
-tree.preOrderForEach(tree.print, tree.root);
+//tree.preOrderForEach(tree.print, tree.root);
 
-tree.prettyPrint(tree.root);
-tree.inOrderForEach(tree.print, tree.root);
+//tree.prettyPrint(tree.root);
+//tree.inOrderForEach(tree.print, tree.root);
 
-tree.prettyPrint(tree.root);
-tree.postOrderForEach(tree.print, tree.root);
+//tree.prettyPrint(tree.root);
+//tree.postOrderForEach(tree.print, tree.root);
+
+console.log(tree.height(28, tree.root));
+console.log(tree.depth(108, tree.root));
