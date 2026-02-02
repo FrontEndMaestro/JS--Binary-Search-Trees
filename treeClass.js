@@ -1,9 +1,10 @@
 import nodeClass from "./nodeClass.js";
 
-class Tree {
+export default class Tree {
   constructor(arr) {
     this.arr = arr;
     this.root = null;
+    this.buildTree()
   }
 
   buildTree() {
@@ -170,7 +171,7 @@ class Tree {
     this.buildTree();
   }
 
-  getArrayOfNodes=(value)=>{
+  getArrayOfNodes = (value) => {
     this.arr.push(value.data);
   };
 
@@ -196,39 +197,13 @@ class Tree {
   }
 }
 
-let tree = new Tree([1, 5, 9, 14, 23, 27, 0, 23, 18, 2]);
-//let tree = new Tree([9, 4, 10, 11]);
+/*let tree = new Tree([1, 5, 9, 14, 23, 27, 0, 23, 18, 2]);
 tree.buildTree(tree.arr);
 tree.insert(12, tree.root);
 tree.insert(6, tree.root);
-//tree.insert(28, tree.root);
-//console.log(tree.arr);
 
-//tree.prettyPrint(tree.root);
-/*tree.deleteItem(1, tree.root);
-tree.deleteItem(5, tree.root);
-tree.deleteItem(9, tree.root);
-*
-
-tree.deleteItem(9, tree.root);
-tree.deleteItem(27, tree.root);
-
-tree.deleteItem(1, tree.root);
-*/
 tree.prettyPrint(tree.root);
-//tree.levelOrderForEach(tree.print);
-//tree.levelOrderRecursive(tree.print, [tree.root]);
-//tree.preOrderForEach(tree.print, tree.root);
-
-//tree.prettyPrint(tree.root);
-//tree.inOrderForEach(tree.print, tree.root);
-
-//tree.prettyPrint(tree.root);
-//tree.postOrderForEach(tree.print, tree.root);
-
-//console.log(tree.height(28, tree.root));
-//console.log(tree.depth(108, tree.root));
-//console.log(tree.isBalanced(tree.root));
 console.log(tree.arr);
 tree.rebalance();
 tree.prettyPrint(tree.root);
+*/
