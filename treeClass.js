@@ -124,7 +124,7 @@ class Tree {
   height(value, root) {
     if (root == null) return undefined;
     if (value == root.data) {
-      return this.countHeight(root, 0, 0);
+      return this.countHeight(root);
     }
     return this.height(value, root.left) == undefined
       ? this.height(value, root.right)
@@ -144,7 +144,6 @@ class Tree {
     if (value == root.data) {
       return 0;
     }
-
     let leftSubtree = this.depth(value, root.left);
     let rightSubtree = this.depth(value, root.right);
     return leftSubtree == undefined
@@ -153,6 +152,16 @@ class Tree {
         : rightSubtree + 1
       : leftSubtree + 1;
   }
+
+  isBalanced(root) {
+    if (root == null) return true;
+    let leftHeight = this.countHeight(root.left);
+    let rightHeight = this.countHeight(root.right);
+    return this.isBalanced(root.left) &&
+      this.isBalanced(root.right) &&
+      Math.abs(leftHeight -( rightHeight)) <= 1
+  }
+
 
   print(node) {
     console.log(node.data);
@@ -177,9 +186,11 @@ class Tree {
 }
 
 let tree = new Tree([1, 5, 9, 14, 23, 27, 0, 23, 18, 2]);
+//let tree = new Tree([9, 4, 10, 11]);
 tree.buildTree(tree.arr);
-
-tree.insert(28, tree.root);
+tree.insert(12,tree.root)
+tree.insert(6,tree.root)
+//tree.insert(28, tree.root);
 //console.log(tree.arr);
 
 //tree.prettyPrint(tree.root);
@@ -204,5 +215,6 @@ tree.prettyPrint(tree.root);
 //tree.prettyPrint(tree.root);
 //tree.postOrderForEach(tree.print, tree.root);
 
-console.log(tree.height(28, tree.root));
-console.log(tree.depth(108, tree.root));
+//console.log(tree.height(28, tree.root));
+//console.log(tree.depth(108, tree.root));
+console.log(tree.isBalanced(tree.root));
