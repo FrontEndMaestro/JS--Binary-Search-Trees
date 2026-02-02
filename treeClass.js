@@ -3,17 +3,16 @@ import nodeClass from "./nodeClass.js";
 export default class Tree {
   constructor(arr) {
     this.arr = arr;
-    this.root = null;
-    this.buildTree()
+    this.root = this.#buildTree();
   }
 
-  buildTree() {
+  #buildTree() {
     let copyarr = this.arr.filter(
       (element, index) => this.arr.indexOf(element) === index,
     );
     copyarr.sort((a, b) => a - b);
     this.arr = [...copyarr];
-    this.root = this.recursiveBST(this.arr, 0, this.arr.length - 1);
+    return this.recursiveBST(this.arr, 0, this.arr.length - 1);
   }
 
   recursiveBST(array, st, end) {
@@ -168,7 +167,7 @@ export default class Tree {
   rebalance() {
     this.arr = [];
     this.levelOrderRecursive(this.getArrayOfNodes, [this.root]);
-    this.buildTree();
+    this.root = this.#buildTree();
   }
 
   getArrayOfNodes = (value) => {
