@@ -7,9 +7,7 @@ export default class Tree {
   }
 
   #buildTree() {
-    let copyarr = this.arr.filter(
-      (element, index) => this.arr.indexOf(element) === index,
-    );
+    let copyarr = [...new Set(this.arr)];
     copyarr.sort((a, b) => a - b);
     this.arr = [...copyarr];
     return this.recursiveBST(this.arr, 0, this.arr.length - 1);
