@@ -15,7 +15,7 @@ function createArray() {
 
 let Tree = new treeClass(createArray());
 //Tree.buildTree();
-Tree.prettyPrint(Tree.root);
+//Tree.prettyPrint(Tree.root);
 console.log("Balanced? ",Tree.isBalanced(Tree.root));
 //Tree.inOrderForEach(Tree.print, Tree.root);
 //Tree.preOrderForEach(Tree.print, Tree.root);
@@ -27,11 +27,11 @@ Tree.insert(140, Tree.root);
 //Tree.insert(180, Tree.root);
 //Tree.insert(132, Tree.root);
 
-Tree.prettyPrint(Tree.root);
-console.log("Balanced? ",Tree.isBalanced(Tree.root));
+//Tree.prettyPrint(Tree.root);
+//console.log("Balanced? ",Tree.isBalanced(Tree.root));
 Tree.rebalance()
 Tree.prettyPrint(Tree.root);
-console.log("Balanced? ",Tree.isBalanced(Tree.root));
+//console.log("Balanced? ",Tree.isBalanced(Tree.root));
 Tree.levelOrderForEach(Tree.print)
 /*Tree.rebalance();
 console.log(Tree.isBalanced());

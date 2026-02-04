@@ -68,7 +68,7 @@ export default class Tree {
   }
 
   levelOrderForEach(callback) {
-    if (typeof callback != "function") throw new Error("Callback required");
+    this.verifyCallbackArg(callback);
     let queue = [];
     let currentnode = this.root;
     queue.push(currentnode);
@@ -85,7 +85,7 @@ export default class Tree {
   }
 
   levelOrderRecursive(callback, queue) {
-    if (typeof callback != "function") throw new Error("Callback required");
+    this.verifyCallbackArg(callback);
     if (queue.length == 0) return;
     let currentnode = queue.shift();
     callback(currentnode);
@@ -99,6 +99,7 @@ export default class Tree {
   }
 
   inOrderForEach(callback, root) {
+    this.verifyCallbackArg(callback);
     if (root == null) return;
     this.inOrderForEach(callback, root.left);
     callback(root);
@@ -106,6 +107,7 @@ export default class Tree {
   }
 
   preOrderForEach(callback, root) {
+    this.verifyCallbackArg(callback);
     if (root == null) return;
     callback(root);
     this.preOrderForEach(callback, root.left);
@@ -113,6 +115,7 @@ export default class Tree {
   }
 
   postOrderForEach(callback, root) {
+    this.verifyCallbackArg(callback);
     if (root == null) return;
     this.postOrderForEach(callback, root.left);
     this.postOrderForEach(callback, root.right);
@@ -174,6 +177,10 @@ export default class Tree {
 
   print(node) {
     console.log(node.data);
+  }
+
+  verifyCallbackArg(callback) {
+    if (typeof callback != "function") throw new Error("Callback required");
   }
 
   prettyPrint(node, prefix = "", isLeft = true) {
